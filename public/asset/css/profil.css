@@ -1,0 +1,181 @@
+:root {
+    --green: #28a745;
+}
+
+body {
+    background-color: #f3f4f6;
+    color: #111827;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ================= NAVBAR ================= */
+.main-navbar {
+    background-color: var(--green);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 0.4rem 1rem;
+}
+
+.main-navbar .nav-link {
+    color: white !important;
+    font-weight: 500;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 6px;
+    color: white;
+}
+
+/* ================= HEADER ================= */
+.profile-header {
+    background: white;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header h2 {
+    margin: 0;
+    font-weight: 600;
+}
+
+/* ================= CONTAINER ================= */
+.profile-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 15px;
+}
+
+/* ================= GRID ================= */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+@media (max-width: 768px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.profile-info h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.profile-info p {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* ================= CARD ================= */
+.profile-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.profile-card-body {
+    padding: 25px;
+}
+
+.profile-card-footer {
+    background: #f9fafb;
+    padding: 15px 25px;
+    text-align: right;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* ================= FORM ================= */
+.profile-label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.profile-input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.profile-input:focus {
+    outline: none;
+    border-color: #22c55e;
+}
+
+/* ================= BUTTON ================= */
+.btn-profile {
+    background: #111827;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.btn-profile:hover {
+    background: #1f2937;
+}
+
+/* ================= EMAIL WARNING ================= */
+.email-warning {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.email-warning button {
+    background: none;
+    border: none;
+    color: #4f46e5;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+}
+
+/* ================= SEPARATOR ================= */
+.profile-separator {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 40px 0;
+}
+
+/* ================= DROPDOWN BUTTON STYLE ================= */
+/* Make <button class="dropdown-item"> look like anchor links */
+.dropdown-menu .dropdown-item {
+    display: block;
+    width: 100%;
+    padding: .25rem 1.5rem;
+    color: #212529;
+    background: none;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dropdown-menu .dropdown-item:focus,
+.dropdown-menu .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #212529;
+    text-decoration: none;
+}
+
+/* Keep danger color for items with .text-danger */
+.dropdown-menu .dropdown-item.text-danger {
+    color: #dc3545;
+}
