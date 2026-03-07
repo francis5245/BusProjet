@@ -64,30 +64,32 @@
                             <i class="bi bi-menu-button me-2"></i>Menu
                         </h5>
                         <nav class="nav flex-column">
-                            <a href="#" class="nav-link py-2 px-3 mb-1 rounded
-   @if(Auth::user()->has_tickets) active bg-success text-white @endif"
-   data-target="tickets-section">
+                            <a href="#"
+                                class="nav-link py-2 px-3 mb-1 rounded
+   @if (Auth::user()->has_tickets) active bg-success text-white @endif"
+                                data-target="tickets-section">
                                 <i class="bi bi-ticket-perforated me-2"></i> Tickets
                             </a>
-                           <a href="#"
-   class="nav-link py-2 px-3 mb-1 rounded
-   @if(request()->is('profile')) active bg-success text-white @endif"
-   data-target="profile-section">
-   <i class="bi bi-person me-2"></i> Profile
-</a>
+                            <a href="#"
+                                class="nav-link py-2 px-3 mb-1 rounded
+   @if (request()->is('profile')) active bg-success text-white @endif"
+                                data-target="profile-section">
+                                <i class="bi bi-person me-2"></i> Profile
+                            </a>
 
-                           <a href="#"
-   class="nav-link py-2 px-3 mb-1 rounded
-   @if(Auth::user()->can_change_password) active bg-success text-white @endif"
-   data-target="change-password-section">
-   <i class="bi bi-key me-2"></i> Change mot de passe
-</a>
-                           <li>
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item text-danger"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</button>
-                                    </form>
-                                </li>
+                            <a href="#"
+                                class="nav-link py-2 px-3 mb-1 rounded
+   @if (Auth::user()->can_change_password) active bg-success text-white @endif"
+                                data-target="change-password-section">
+                                <i class="bi bi-key me-2"></i> Change mot de passe
+                            </a>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger"><i
+                                            class="fas fa-sign-out-alt me-2"></i>Déconnexion</button>
+                                </form>
+                            </li>
                         </nav>
                     </div>
                 </div>

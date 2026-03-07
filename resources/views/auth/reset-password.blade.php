@@ -126,11 +126,21 @@
                     passe ci-dessous.</p>
 
                 <!-- Reset Form -->
-                <form method="POST" action="{{ route('profile.updatePassword') }}">
+                <form method="POST" action="{{ route('password.update') }}">
 
                     @csrf
-                    @method('PUT')
 
+                    {{-- @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif --}}
+                    <input type="hidden" name="token" value="{{ $request->route('token') }}">
+                    <input type="hidden" name="email" value="{{ $request->email }}">
 
                     {{-- Nouveau mot de passe --}}
                     <div class="mb-3">

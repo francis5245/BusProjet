@@ -112,18 +112,27 @@
 
                 <div class="trips-wrapper" id="tripsWrapper">
                     <!-- Trip 1 -->
-                    <div class="trip-card">
+                      <div class="trip-card">
                         <div class="trip-image">
                             <img src="./asset/image/bus12.jpg" alt="Cox's Bazar - Rangpur">
                         </div>
                         <div class="trip-info">
                             <div class="trip-route">COX'S BAZAR - RANGPUR</div>
+
+                            <!-- Horaires et sièges sur la même ligne -->
+                            <div
+                                style="display: flex; justify-content: space-between; margin: 8px 0; font-size: 14px; color: #666;">
+                                <span><i class="fas fa-clock" style="color: #01602A;"></i> 08:00 - 16:30</span>
+                                <span><i class="fas fa-chair" style="color: #01602A;"></i> 24 sièges</span>
+                            </div>
+
                             <div class="trip-price">
                                 <span class="price-label">Prix : BDT 700</span>
                                 <button class="reserve-btn">Réservez Maintenant</button>
                             </div>
                         </div>
                     </div>
+
 
                     <!-- Trip 2 -->
                     <div class="trip-card">
@@ -132,6 +141,14 @@
                         </div>
                         <div class="trip-info">
                             <div class="trip-route">DHAKA - RANGPUR</div>
+
+                            <!-- Horaires et sièges sur la même ligne -->
+                            <div
+                                style="display: flex; justify-content: space-between; margin: 8px 0; font-size: 14px; color: #666;">
+                                <span><i class="fas fa-clock" style="color: #01602A;"></i> 06:00 - 14:30</span>
+                                <span><i class="fas fa-chair" style="color: #01602A;"></i> 32 sièges</span>
+                            </div>
+
                             <div class="trip-price">
                                 <span class="price-label">Prix : BDT 800</span>
                                 <button class="reserve-btn">Réservez Maintenant</button>
@@ -146,6 +163,14 @@
                         </div>
                         <div class="trip-info">
                             <div class="trip-route">RANGPUR - COMILLA</div>
+
+                            <!-- Horaires et sièges sur la même ligne -->
+                            <div
+                                style="display: flex; justify-content: space-between; margin: 8px 0; font-size: 14px; color: #666;">
+                                <span><i class="fas fa-clock" style="color: #01602A;"></i> 09:00 - 18:00</span>
+                                <span><i class="fas fa-chair" style="color: #01602A;"></i> 28 sièges</span>
+                            </div>
+
                             <div class="trip-price">
                                 <span class="price-label">Prix : BDT 1200</span>
                                 <button class="reserve-btn">Réservez Maintenant</button>
@@ -160,6 +185,14 @@
                         </div>
                         <div class="trip-info">
                             <div class="trip-route">COMILLA - RANGPUR</div>
+
+                            <!-- Horaires et sièges sur la même ligne -->
+                            <div
+                                style="display: flex; justify-content: space-between; margin: 8px 0; font-size: 14px; color: #666;">
+                                <span><i class="fas fa-clock" style="color: #01602A;"></i> 10:00 - 19:00</span>
+                                <span><i class="fas fa-chair" style="color: #01602A;"></i> 28 sièges</span>
+                            </div>
+
                             <div class="trip-price">
                                 <span class="price-label">Prix : BDT 1300</span>
                                 <button class="reserve-btn">Réservez Maintenant</button>
@@ -174,6 +207,14 @@
                         </div>
                         <div class="trip-info">
                             <div class="trip-route">COX'S BAZAR - RANGPUR</div>
+
+                            <!-- Horaires et sièges sur la même ligne -->
+                            <div
+                                style="display: flex; justify-content: space-between; margin: 8px 0; font-size: 14px; color: #666;">
+                                <span><i class="fas fa-clock" style="color: #01602A;"></i> 08:00 - 16:30</span>
+                                <span><i class="fas fa-chair" style="color: #01602A;"></i> 24 sièges</span>
+                            </div>
+
                             <div class="trip-price">
                                 <span class="price-label">Prix : BDT 700</span>
                                 <button class="reserve-btn">Réservez Maintenant</button>
