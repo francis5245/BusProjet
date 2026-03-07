@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+// use App\Models\User;
+
+// use App\Models\ReservationSiege;
+// use App\Models\Siege;
+use Database\Seeders\ReservationsSiegeSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -22,9 +26,20 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        // $this->call([
+        //     AdminUserSeeder::class,
+        // ]);
         $this->call([
-            AdminUserSeeder::class,
+            VilleSeeder::class,
+            BusSeeder::class,
+            // UserSeeder::class,
+            
         ]);
-
+         $this->call(UserSeeder::class);
+        $this->call(TrajetSeeder::class);
+          $this->call(VoyageSeeder::class);
+        $this->call(SiegeSeeder::class);
+        $this->call(ReservationSeeder::class);
+         $this->call(ReservationsSiegeSeeder::class);
     }
 }

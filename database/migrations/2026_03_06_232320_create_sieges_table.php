@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('sieges', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bus_id')->constrained('bus')->cascadeOnDelete();
+            $table->foreignId('bus_id')->constrained()->cascadeOnDelete();
             $table->Integer('numero_siege');
             $table->timestamps();
         });

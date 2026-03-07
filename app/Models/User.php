@@ -2,19 +2,20 @@
 
 namespace App\Models;
 
-use Log;
-use Laravel\Jetstream\HasProfilePhoto;
-use App\Notifications\CustomVerifyEmail;
-use Illuminate\Notifications\Notifiable;
 use App\Notifications\CustomResetPassword;
+use App\Notifications\CustomVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable; // <-- très important
+use Illuminate\Notifications\Notifiable;
+use Laravel\Jetstream\HasProfilePhoto;
+use Log;
 
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
-
+    use HasFactory;
     protected $fillable = [
         'name',
         'email',

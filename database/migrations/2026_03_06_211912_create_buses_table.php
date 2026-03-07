@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bus', function (Blueprint $table) {
+        Schema::create('buses', function (Blueprint $table) {
             $table->id();
             $table->string('nom_bus');
             $table->string('numero_bus')->unique();
             $table->integer('nombre_places');
+            $table->string('image')->nullable();
             $table->string('status')->default('actif');
             $table->timestamps();
         });

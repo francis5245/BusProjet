@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('voyages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('trajet_id')->constrained('trajets')->onDelete('cascade');
-            $table->foreignId('bus_id')->constrained('bus')->cascadeOnDelete();
+            $table->foreignId('bus_id')->constrained()->cascadeOnDelete();
             $table->foreignId('chauffeur_id')->constrained('users')->cascadeOnDelete();
             $table->date('date_depart');
             $table->time('heure_depart');
