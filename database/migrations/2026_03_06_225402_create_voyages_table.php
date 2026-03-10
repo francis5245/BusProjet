@@ -20,7 +20,7 @@ return new class extends Migration
             $table->time('heure_depart');
             $table->decimal('prix',10,2);
             $table->integer('places_disponibles');
-            $table->string('status')->default('ouvert');
+            $table->string('status')->default('en attente');
             $table->timestamps();
         });
     }

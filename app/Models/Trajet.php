@@ -15,4 +15,12 @@ class Trajet extends Model
         'distance',
         'duree',
     ];
+    public function villeDepart(){
+        return
+        $this->belongsTo(Ville::class,'ville_depart_id');
+    }
+     public function villeArrivee(){
+        return
+        $this->belongsTo(Ville::class,'ville_arrivee_id');
+    }
 }

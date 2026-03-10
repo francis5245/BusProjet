@@ -13,4 +13,8 @@ class Siege extends Model
         'bus_id',
         'numero_siege',
     ];
+     public function bus()
+    {
+        return $this->belongsTo(Bus::class);
+    }
 }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('reservation_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('siege_id')->constrained();
             $table->string('numero_ticket')->unique();
             $table->string('qr_code')->nullable();
             $table->timestamps();

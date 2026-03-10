@@ -23,6 +23,7 @@ use App\Http\Controllers\AuthController;
 
 // ----------------------- ACCUEIL -----------------------
 Route::get('/', [MenusController::class, 'Accueil'])->name('accueil');
+Route::get('/search', [MenusController::class, 'Recherche'])->name('recherche');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [MenusController::class, 'Dashboard'])->name('dashboard');

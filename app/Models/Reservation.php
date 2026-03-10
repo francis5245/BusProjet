@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PHPUnit\Framework\Attributes\Ticket;
 
 class Reservation extends Model
 {
@@ -15,9 +16,18 @@ class Reservation extends Model
         'nombre_places',
         'montant_total',
         'status'
-    ];
-    public function voyage()
-{
-    return $this->belongsTo(Voyage::class);
-}
+    ]; 
+     public function client()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+     public function voyage()
+    {
+        return $this->belongsTo(Voyage::class);
+    }
+     public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+    
 }

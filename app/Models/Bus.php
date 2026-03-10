@@ -15,4 +15,8 @@ class Bus extends Model
         'nombre_places',
         'status' 
     ];
+     public function sieges()
+    {
+        return $this->hasMany(Siege::class);
+    }
 }

@@ -12,4 +12,14 @@ class Ville extends Model
     protected $fillable = [
         'nom_ville',
     ];
+    public function trajetsDepart()
+    {
+        return
+            $this->hasMany(Trajet::class, 'ville_depart_id');
+    }
+    public function trajetsArrivee()
+    {
+        return
+            $this->belongsTo(Ville::class, 'ville_arrivee_id');
+    }
 }

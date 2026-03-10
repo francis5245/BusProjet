@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bus;
+use App\Models\Ville;
 use Illuminate\Http\Request;
 
 class MenusController extends Controller
@@ -9,7 +11,10 @@ class MenusController extends Controller
     //
     public function Accueil()
     {
-        return view('component.Acceuil');
+        $villes=Ville::all();
+        $bus = Bus::latest()->take(6)->get();
+
+        return view('component.acceuil', compact('bus','villes'));
     }
     public function Dashboard()
     {
@@ -29,4 +34,5 @@ class MenusController extends Controller
         }
         return redirect()->route('login');
     }
+    
 }

@@ -14,43 +14,61 @@
         <!-- Search Form -->
         <section class="py-5">
             <div class="container">
-                <div class="search-form">
-                    <!-- From-To Section -->
-                    <div class="from-to-group">
-                        <input type="text" class="from-to-input" placeholder="Ville de départ" list="cities">
-                        <div class="swap-icon">
-                            <i class="fas fa-exchange-alt"></i>
+                <form action="{{ route('recherche') }}" method="POST" id="search-form">
+                    <div class="search-form">
+                        <!-- From-To Section -->
+                        <div class="from-to-group">
+                            {{-- <input type="text" class="from-to-input" id="villeDepart" placeholder="Ville de départ"
+                                list="cities"> --}}
+                                <select name="villeDepart" id="villeDepart" class="from-to-input">
+                                    <option value="">Ville de départ</option>
+                                    @foreach ($villes as $ville)
+                                         <option value="{{$ville->id}}">{{$ville->nom_ville}}</option>
+                                    @endforeach
+                                </select>
+                            <div class="swap-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            {{-- <input type="text" class="from-to-input" id="villeArrivee" placeholder="Ville de destination"
+                                list="cities"> --}}
+                                <select name="villeArrivee" id="villeArrivee" class="from-to-input">
+                                    <option value="">Ville de destination</option>
+                                    @foreach ($villes as $ville)
+                                         <option value="{{$ville->id}}">{{$ville->nom_ville}}</option>
+                                    @endforeach
+                                </select>
+                            {{-- <datalist id="cities">
+                                @foreach ($villes as $ville)
+                                    <option value="{{ $ville->nom_ville }}"></option>
+                                @endforeach
+                                 <option value="Cox's Bazar"></option>
+                                    <option value="Comilla"></option>
+                                    <option value="Sylhet"></option>
+                                    <option value="Chittagong"></option>  
+                            </datalist> --}}
                         </div>
-                        <input type="text" class="from-to-input" placeholder="Ville de destination" list="cities">
-                        <datalist id="cities">
-                            <option value="Dhaka"></option>
-                            <option value="Rangpur"></option>
-                            <option value="Cox's Bazar"></option>
-                            <option value="Comilla"></option>
-                            <option value="Sylhet"></option>
-                            <option value="Chittagong"></option>
-                        </datalist>
-                    </div>
 
-                    <!-- Departure Date -->
-                    <div class="date-group">
-                        <div class="date-label">Départ</div>
-                        <div class="date-input">
-                            <input type="date" class="date-field" id="departureDate">
+                        <!-- Departure Date -->
+                        <div class="date-group">
+                            <div class="date-label">Départ</div>
+                            <div class="date-input">
+                                <input type="date" class="date-field" id="departureDate" name="departureDate">
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Return Date (Optional) -->
-                    <div class="date-group">
-                        <div class="date-label">Retour (Optionnel)</div>
-                        <div class="date-input">
-                            <input type="date" class="date-field" id="returnDate">
+                        <!-- Return Date (Optional) -->
+                        <div class="date-group">
+                            <div class="date-label">Retour (Optionnel)</div>
+                            <div class="date-input">
+                                <input type="date" class="date-field" id="returnDate" name="returnDate">
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Find Tickets Button -->
-                    <button class="find-tickets-btn">Trouver des Billets</button>
-                </div>
+                        <!-- Find Tickets Button -->
+                        <button type="submit" class="find-tickets-btn">Trouver des Billets</button>
+                    </div>
+                </form>
+
             </div>
         </section>
 
@@ -112,7 +130,7 @@
 
                 <div class="trips-wrapper" id="tripsWrapper">
                     <!-- Trip 1 -->
-                      <div class="trip-card">
+                    <div class="trip-card">
                         <div class="trip-image">
                             <img src="./asset/image/bus12.jpg" alt="Cox's Bazar - Rangpur">
                         </div>

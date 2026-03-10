@@ -27,31 +27,31 @@ document.addEventListener('DOMContentLoaded', function () {
     /* ================================
        3️⃣ Bouton rechercher billets
     ================================= */
-    const findTicketsBtn = document.querySelector('.find-tickets-btn');
-    if (findTicketsBtn) {
-        findTicketsBtn.addEventListener('click', function (e) {
-            e.preventDefault();
+    // const findTicketsBtn = document.querySelector('.find-tickets-btn');
+    // if (findTicketsBtn) {
+    //     findTicketsBtn.addEventListener('click', function (e) {
+    //         e.preventDefault();
 
-            const inputs = document.querySelectorAll('.from-to-input');
-            const from = inputs[0]?.value.trim() || '';
-            const to = inputs[1]?.value.trim() || '';
-            const departure = document.getElementById('departureDate')?.value || '';
-            const returnDate = document.getElementById('returnDate')?.value || '';
+    //         const inputs = document.querySelectorAll('.from-to-input');
+    //         const from = inputs[0]?.value.trim() || '';
+    //         const to = inputs[1]?.value.trim() || '';
+    //         const departure = document.getElementById('departureDate')?.value || '';
+    //         const returnDate = document.getElementById('returnDate')?.value || '';
 
-            if (!from || !to || !departure) {
-                alert('Veuillez remplir tous les champs obligatoires.');
-                return;
-            }
+    //         if (!from || !to || !departure) {
+    //             alert('Veuillez remplir tous les champs obligatoires.');
+    //             return;
+    //         }
 
-            alert(
-                `Recherche de billets :
-De : ${from}
-À : ${to}
-Départ : ${departure}
-${returnDate ? `Retour : ${returnDate}` : ''}`
-            );
-        });
-    }
+    //                         alert(
+    //                             `Recherche de billets :
+    //             De : ${from}
+    //             À : ${to}
+    //             Départ : ${departure}
+    //             ${returnDate ? `Retour : ${returnDate}` : ''}`
+    //                         );
+    //     });
+    // }
 
 
     /* ================================

@@ -43,5 +43,12 @@ class User extends Authenticatable implements MustVerifyEmail
 }
 
     use HasProfilePhoto;
-
+    public function reservations(){
+        return
+        $this->hasMany(Reservation::class);
+    }
+     public function voyagesChauffeur(){
+        return
+        $this->hasMany(Voyage::class,'chauffeur_id');
+    }
 }
