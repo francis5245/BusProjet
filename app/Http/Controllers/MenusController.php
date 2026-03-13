@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bus;
+use App\Models\Trajet;
 use App\Models\Ville;
+use App\Models\Voyage;
 use Illuminate\Http\Request;
 
 class MenusController extends Controller
@@ -11,10 +13,10 @@ class MenusController extends Controller
     //
     public function Accueil()
     {
-        $villes=Ville::all();
+        $villes = Ville::all();
         $bus = Bus::latest()->take(6)->get();
 
-        return view('component.acceuil', compact('bus','villes'));
+        return view('component.acceuil', compact('bus', 'villes'));
     }
     public function Dashboard()
     {
@@ -34,5 +36,45 @@ class MenusController extends Controller
         }
         return redirect()->route('login');
     }
-    
+    public function Recherche(Request $request)
+    {
+        //1)Verification des données envoyées
+        $request->validate([
+            'villeDepart' => 'required|exists:villes,id',
+            'villeArrivee' => 'required|exists:villes,id',
+            'dateDepart' => 'required|date',
+        ]);
+        $depart = $request->input('villeDepart');
+        $arrivee = $request->input('villeArrivee');
+        $date = $request->input('dateDepart');
+        //2)vérification du trajet disponible dans la base de donnée
+        $trajet = Trajet::where('ville_depart_id', $depart)
+            ->where('ville_arrivee_id', $arrivee)->first();
+        if (!$trajet) {
+            return response()->json([
+                'success' => false,
+                'message' => "Désolé, nous ne disposons pas encore cette ligne."
+            ]);
+        }
+        //3)Les voyages prevus pour ce trajet à cette date
+        $voyages = Voyage::with(['bus', 'trajet.villeDepart', 'trajet.villeArrivee'])
+            ->whereHas('trajet', function ($q) use ($depart, $arrivee) {
+                $q->where('ville_depart_id', $depart)
+                    ->where('ville_arrivee_id', $arrivee);
+            })
+            ->whereDate('date_depart', $date)
+            ->where('status', 'disponible')
+            ->orderBy('heure_depart')
+            ->get();
+        if ($voyages->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => "Aucun bus disponible pour ce trajet à cette date."
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+            'voyages' => $voyages
+        ]);
+    }
 }

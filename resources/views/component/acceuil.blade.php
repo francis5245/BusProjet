@@ -20,23 +20,23 @@
                         <div class="from-to-group">
                             {{-- <input type="text" class="from-to-input" id="villeDepart" placeholder="Ville de départ"
                                 list="cities"> --}}
-                                <select name="villeDepart" id="villeDepart" class="from-to-input">
-                                    <option value="">Ville de départ</option>
-                                    @foreach ($villes as $ville)
-                                         <option value="{{$ville->id}}">{{$ville->nom_ville}}</option>
-                                    @endforeach
-                                </select>
+                            <select name="villeDepart" id="villeDepart" class="from-to-input">
+                                <option value="">Ville de départ</option>
+                                @foreach ($villes as $ville)
+                                    <option value="{{ $ville->id }}">{{ $ville->nom_ville }}</option>
+                                @endforeach
+                            </select>
                             <div class="swap-icon">
                                 <i class="fas fa-exchange-alt"></i>
                             </div>
                             {{-- <input type="text" class="from-to-input" id="villeArrivee" placeholder="Ville de destination"
                                 list="cities"> --}}
-                                <select name="villeArrivee" id="villeArrivee" class="from-to-input">
-                                    <option value="">Ville de destination</option>
-                                    @foreach ($villes as $ville)
-                                         <option value="{{$ville->id}}">{{$ville->nom_ville}}</option>
-                                    @endforeach
-                                </select>
+                            <select name="villeArrivee" id="villeArrivee" class="from-to-input">
+                                <option value="">Ville de destination</option>
+                                @foreach ($villes as $ville)
+                                    <option value="{{ $ville->id }}">{{ $ville->nom_ville }}</option>
+                                @endforeach
+                            </select>
                             {{-- <datalist id="cities">
                                 @foreach ($villes as $ville)
                                     <option value="{{ $ville->nom_ville }}"></option>
@@ -52,7 +52,8 @@
                         <div class="date-group">
                             <div class="date-label">Départ</div>
                             <div class="date-input">
-                                <input type="date" class="date-field" id="departureDate" name="departureDate">
+                                <input type="date" class="date-field" id="dateDepart" name="dateDepart"
+                                    min="{{ date('Y-m-d') }}">
                             </div>
                         </div>
 
@@ -60,7 +61,8 @@
                         <div class="date-group">
                             <div class="date-label">Retour (Optionnel)</div>
                             <div class="date-input">
-                                <input type="date" class="date-field" id="returnDate" name="returnDate">
+                                <input type="date" class="date-field" id="dateArrivee" name="dateArrivee"
+                                    min="{{ date('Y-m-d') }}">
                             </div>
                         </div>
 
@@ -120,15 +122,29 @@
 
         <div class="container travel-section">
             <h2 class="section-title">Profitez bien de vos voyages</h2>
-            <p class="section-subtitle">Sélectionnez vos voyages pour voyager dans les endroits que vous souhaitez
-                visiter</p>
+            {{-- <p class="section-subtitle">Sélectionnez vos voyages pour voyager dans les endroits que vous souhaitez
+                visiter</p> --}}
 
-            <div class="trips-container">
-                <div class="nav-arrow left" id="prevBtn">
+            <div class="trips-container" id="resultats">
+                {{-- <div class="nav-arrow left" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </div> --}}
+                <div class="nav-arrow left" id="prevBtn" style="display:none;">
                     <i class="fas fa-chevron-left"></i>
                 </div>
 
-                <div class="trips-wrapper" id="tripsWrapper">
+                <div id="loader" style="display:none; text-align:center; padding:20px;">
+                    <div class="spinner-border text-success" role="status"></div>
+                    <p style="margin-top:10px;">Recherche en cours...</p>
+                </div>
+                <!-- Texte par défaut avant recherche -->
+                <h3 id="defaultText" style="text-align:center; color:#666; font-size:16px;">
+                    Entrez votre ville de départ, votre destination et la date pour trouver des voyages.
+                </h3>
+                <div id="resumeRecherche" style="margin-bottom:20px; font-weight:bold;"></div>
+                <div class="trips-wrapper" id="tripsWrapper"></div>
+
+                {{-- <div class="trips-wrapper" id="tripsWrapper">
                     <!-- Trip 1 -->
                     <div class="trip-card">
                         <div class="trip-image">
@@ -239,9 +255,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="nav-arrow right" id="nextBtn">
+                {{-- <div class="nav-arrow right" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </div> --}}
+                <div class="nav-arrow right" id="nextBtn" style="display:none;">
                     <i class="fas fa-chevron-right"></i>
                 </div>
             </div>
@@ -468,4 +487,5 @@
 
 
     </div>
+    <div id="toast-container"></div>
 @endsection

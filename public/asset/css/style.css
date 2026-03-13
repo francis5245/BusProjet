@@ -250,41 +250,70 @@ body {
 /* Travel Section */
 .travel-section {
   padding: 4rem 2rem;
+  width: 100%;
+  overflow: hidden;
 }
 
+/* SECTION */
 .trips-container {
   position: relative;
   overflow: hidden;
   padding: 2rem 0;
 }
 
+/* WRAPPER */
 .trips-wrapper {
   display: flex;
-  gap: 1.5rem;
-  transition: transform 0.5s ease;
-  width: max-content;
+  gap: 20px;
+
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+
   padding: 0 20px;
+
+  scrollbar-width: none;
 }
 
+.trips-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* CARD */
 .trip-card {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  width: 300px;
+
+  background: #fff;
+
+  border-radius: 10px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+
+  min-width: 300px;
+  max-width: 300px;
+
   flex-shrink: 0;
+
   overflow: hidden;
+
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s, box-shadow 0.2s;
+
+  transition: transform .25s ease, box-shadow .25s ease;
+
+  scroll-snap-align: start;
+
 }
 
 .trip-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
 }
 
+
+/* IMAGE */
 .trip-image {
-  height: 200px;
+  height: 190px;
   overflow: hidden;
   position: relative;
 }
@@ -293,58 +322,164 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform .35s ease;
 }
 
-.trip-image:hover img {
+.trip-card:hover img {
   transform: scale(1.05);
 }
 
+
+/* INFO */
 .trip-info {
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   flex-grow: 1;
 }
 
 .trip-route {
-  font-weight: bold;
-  color: #212529;
-  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: .6rem;
   text-align: center;
-  font-size: 0.95rem;
+  font-size: .95rem;
 }
 
+
+/* PRICE */
 .trip-price {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-top: 1rem;
+  align-items: center;
+  margin-top: 10px;
 }
 
 .price-label {
   color: #28a745;
-  font-weight: bold;
-  font-size: 0.9rem;
+  font-weight: 700;
+  font-size: .95rem;
 }
 
+
+/* BUTTON */
 .reserve-btn {
-  background-color: #28a745;
+  background: #28a745;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: background-color 0.2s;
-  text-align: center;
-  font-size: 0.875rem;
-  white-space: nowrap;
+
+  padding: 7px 14px;
+
+  border-radius: 5px;
+
+  font-size: .85rem;
+
   cursor: pointer;
+
+  transition: background .25s;
 }
 
 .reserve-btn:hover {
-  background-color: #218838;
+  background: #1f7a35;
+}
+
+
+/* NAV BUTTONS */
+
+.nav-btn {
+
+  position: absolute;
+
+  top: 50%;
+  transform: translateY(-50%);
+
+  background: #01602A;
+
+  color: white;
+
+  border: none;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+
+}
+
+.prev {
+  left: 5px;
+}
+
+.next {
+  right: 5px;
+}
+
+
+/* TABLET */
+
+@media (max-width: 992px) {
+
+  .trip-card {
+    min-width: 260px;
+    max-width: 260px;
+  }
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .trips-wrapper {
+    gap: 15px;
+    padding: 0 15px;
+  }
+
+  .trip-card {
+    min-width: 220px;
+    max-width: 220px;
+  }
+
+  .trip-image {
+    height: 160px;
+  }
+
+  .trip-route {
+    font-size: .9rem;
+  }
+
+  .price-label {
+    font-size: .85rem;
+  }
+
+  .reserve-btn {
+    padding: 6px 12px;
+    font-size: .8rem;
+  }
+
+}
+
+
+/* PETITS TELEPHONES */
+
+@media (max-width: 400px) {
+
+  .trip-card {
+    min-width: 200px;
+    max-width: 200px;
+  }
+
 }
 
 .nav-arrow {
@@ -1091,3 +1226,87 @@ body {
 .signup-link a:hover {
   text-decoration: underline;
 }
+
+
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Espacement uniforme */
+    pointer-events: none; /* Permet de cliquer à travers le container vide */
+}
+
+.toast {
+    pointer-events: auto; /* Réactive les clics sur le toast lui-même */
+    background: #ffffff;
+    min-width: 320px;
+    max-width: 450px; /* Sécurité pour les messages longs */
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    
+    /* État initial (caché) */
+    transform: translateX(110%); 
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+}
+
+.toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.toast-message {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-family: sans-serif;
+    color: #2c3e50;
+    line-height: 1.4;
+}
+
+.toast-close {
+    cursor: pointer;
+    font-size: 18px;
+    color: #bdc3c7;
+    transition: color 0.2s, transform 0.2s;
+    line-height: 1;
+    margin-left: 10px;
+}
+
+.toast-close:hover {
+    color: #7f8c8d;
+    transform: scale(1.1);
+}
+
+.toast-progress {
+    height: 3px;
+    width: 100%;
+    /* La durée est injectée par le JS */
+    transition: width linear; 
+    opacity: 0.8;
+}
+
+/* Couleurs thématiques dynamiques */
+.toast-success { border-left: 4px solid #4CAF50; }
+.toast-success .toast-progress { background: #4CAF50; }
+
+.toast-error { border-left: 4px solid #f44336; }
+.toast-error .toast-progress { background: #f44336; }
+
+.toast-warning { border-left: 4px solid #ff9800; }
+.toast-warning .toast-progress { background: #ff9800; }
+
+.toast-info { border-left: 4px solid #2196F3; }
+.toast-info .toast-progress { background: #2196F3; }
