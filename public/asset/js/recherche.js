@@ -3,128 +3,119 @@ document.addEventListener('DOMContentLoaded', function () {
     const resultContainer = document.getElementById("tripsWrapper");
     const loader = document.getElementById("loader");
     //Nouvelles références pour le basculement de la page
-    const sectionAccueil=document.getElementById("section-accueil");
-    const sectionResultats=document.getElementById('section-resultats')
-    if(form){
-           form.addEventListener("submit", function (e) {
+    const sectionAccueil = document.getElementById("section-accueil");
+    const sectionResultats = document.getElementById('section-resultats')
+    if (form) {
+        form.addEventListener("submit", function (e) {
 
-        e.preventDefault(); // Empêche le rechargement
+            e.preventDefault(); // Empêche le rechargement
             //recuperation des champs
-        const departId = document.getElementById("villeDepart").value;
-        const arriveeId = document.getElementById("villeArrivee").value;
-        const dateDepart = document.getElementById("dateDepart").value;
+            const departId = document.getElementById("villeDepart").value;
+            const arriveeId = document.getElementById("villeArrivee").value;
+            const dateDepart = document.getElementById("dateDepart").value;
 
-        // Vérification des champs
-        if (!departId || !arriveeId || !dateDepart) {
+            // Vérification des champs
+            if (!departId || !arriveeId || !dateDepart) {
+                showNotification("Veuillez remplir tous les champs !", "danger");
+                // showNotification("Enregistré !", "success");
+                // showNotification("Attention au quota !", "warning");
+                return; // stop la recherche
+            }
+            // empêcher que l'utilisateur choisisse la même ville pour départ et arrivée.
+            if (departId === arriveeId) {
+              
+                showNotification("La ville de départ et d'arrivée doivent être différentes.", "warning");
+                return;
+            }
+            // cacher le texte par défaut
+            defaultText.style.display = "none";
 
-            Swal.fire({
-                icon: "warning",
-                title: "Champs manquants",
-                text: "Veuillez sélectionner la ville de départ, la destination et la date.",
-                width: "300px"
-            });
+            // afficher loader
+            loader.style.display = "block";
+            resultContainer.innerHTML = "";
 
-            return; // stop la recherche
-        }
-        // empêcher que l'utilisateur choisisse la même ville pour départ et arrivée.
-        if (departId === arriveeId) {
-            Swal.fire({
-                icon: "warning",
-                title: "Choix invalide",
-                text: "La ville de départ et d'arrivée doivent être différentes.",
-                width: "300px"
-            });
-            return;
-        }
-        // cacher le texte par défaut
-        defaultText.style.display = "none";
-
-        // afficher loader
-        loader.style.display = "block";
-        resultContainer.innerHTML = "";
-
-        fetch(form.action, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: JSON.stringify({
-                villeDepart: departId,
-                villeArrivee: arriveeId,
-                dateDepart: dateDepart
-            })
-        })
-
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Erreur réseau");
-                }
-                return response.json();
+            fetch(form.action, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify({
+                    villeDepart: departId,
+                    villeArrivee: arriveeId,
+                    dateDepart: dateDepart
+                })
             })
 
-            .then(data => {
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Erreur réseau");
+                    }
+                    return response.json();
+                })
 
-                loader.style.display = "none";
+                .then(data => {
 
-                if (!data.success) {
-                    resultContainer.innerHTML = "";
-                    defaultText.style.display = "block";
-                    prevBtn.style.display = "none";
-                    nextBtn.style.display = "none";
+                    loader.style.display = "none";
+
+                    if (!data.success) {
+                        resultContainer.innerHTML = "";
+                        defaultText.style.display = "block";
+                        prevBtn.style.display = "none";
+                        nextBtn.style.display = "none";
+
+                        Swal.fire({
+                            icon: "info",
+                            title: "Information",
+                            text: data.message, // message venant du serveur
+                            width: "300px"
+                        });
+
+                        return;
+                    }
+
+                    afficherResultats(data.voyages);
+
+                    // Le nombre de voyage disponible
+                    const nombreVoyages = data.voyages.length;
+
+                    const premierVoyage = data.voyages[0];
+
+                    const depart = premierVoyage.trajet.ville_depart.nom_ville;
+                    const arrivee = premierVoyage.trajet.ville_arrivee.nom_ville;
+                    const date = premierVoyage.date_depart;
+
+                    document.getElementById("resumeRecherche").innerHTML =
+                        `Vous avez <b>${nombreVoyages}</b> voyage(s) disponible(s) de <b>${depart}</b> à <b>${arrivee}</b> le <b>${date}</b>.`;
+
+                    //  scroll vers les résultats de recherche
+                    document.getElementById("resultats").scrollIntoView({
+                        behavior: "smooth"
+                    });
+                    //button next
+                    // prevBtn.style.display = "flex";
+                    // nextBtn.style.display = "flex";
+
+                })
+
+                .catch(error => {
+
+                    loader.style.display = "none";
+
+                    console.error(error);
 
                     Swal.fire({
-                        icon: "info",
-                        title: "Information",
-                        text: data.message, // message venant du serveur
+                        icon: "error",
+                        title: "Erreur",
+                        text: "Une erreur est survenue pendant la recherche",
                         width: "300px"
                     });
 
-                    return;
-                }
-
-                afficherResultats(data.voyages);
-
-                // Le nombre de voyage disponible
-                const nombreVoyages = data.voyages.length;
-
-                const premierVoyage = data.voyages[0];
-
-                const depart = premierVoyage.trajet.ville_depart.nom_ville;
-                const arrivee = premierVoyage.trajet.ville_arrivee.nom_ville;
-                const date = premierVoyage.date_depart;
-
-                document.getElementById("resumeRecherche").innerHTML =
-                    `Vous avez <b>${nombreVoyages}</b> voyage(s) disponible(s) de <b>${depart}</b> à <b>${arrivee}</b> le <b>${date}</b>.`;
-
-                //  scroll vers les résultats de recherche
-                document.getElementById("resultats").scrollIntoView({
-                    behavior: "smooth"
-                });
-                //button next
-                // prevBtn.style.display = "flex";
-                // nextBtn.style.display = "flex";
-
-            })
-
-            .catch(error => {
-
-                loader.style.display = "none";
-
-                console.error(error);
-
-                Swal.fire({
-                    icon: "error",
-                    title: "Erreur",
-                    text: "Une erreur est survenue pendant la recherche",
-                    width: "300px"
                 });
 
-            });
-
-    });
+        });
     }
- 
+
 })
 function afficherResultats(voyages) {
 
@@ -181,3 +172,81 @@ function afficherResultats(voyages) {
     resultContainer.innerHTML = html;
 
 }
+
+
+function showNotification(message, type = 'danger') {
+    const toastContainer = document.querySelector('.toast-container');
+    const toastEl = document.getElementById('liveToast');
+    const toastBody = document.getElementById('toastBody');
+    const toastIcon = document.getElementById('toastIcon');
+    const toastProgress = document.getElementById('toastProgress');
+    const delay = parseInt(toastEl.getAttribute('data-bs-delay'));
+
+    // Configuration des styles par type
+    const config = {
+        danger: { color: '#f44336', icon: '!' }, // Rouge
+        success: { color: '#28a745', icon: '✓' }, // Vert
+        warning: { color: '#ff9800', icon: '⚠' }  // Orange
+    };
+
+    const current = config[type] || config.danger;
+
+    // 1. Appliquer les styles dynamiques
+    toastIcon.style.backgroundColor = current.color;
+    toastProgress.style.backgroundColor = current.color;
+    toastIcon.textContent = current.icon;
+    toastBody.textContent = message;
+
+    // 2. Afficher le conteneur
+    toastContainer.style.display = 'block';
+
+    // 3. Reset l'animation de la barre
+    toastProgress.style.transition = 'none';
+    toastProgress.style.width = '100%';
+
+    // 4. Lancer le Toast Bootstrap
+    const toast = bootstrap.Toast.getOrCreateInstance(toastEl);
+    toast.show();
+
+    // 5. Animation du trait (déclenchée juste après l'affichage)
+    setTimeout(() => {
+        toastProgress.style.transition = `width ${delay}ms linear`;
+        toastProgress.style.width = '0%';
+    }, 150);
+
+    // 6. Nettoyage : cacher le conteneur quand le toast disparaît
+    toastEl.addEventListener('hidden.bs.toast', () => {
+        toastContainer.style.display = 'none';
+    }, { once: true });
+}
+
+// function showNotification(message) {
+//     const toastContainer = document.querySelector('.toast-container');
+//     const toastEl = document.getElementById('liveToast');
+//     const toastBody = document.getElementById('toastBody');
+//     const toastProgress = document.getElementById('toastProgress');
+//     const delay = parseInt(toastEl.getAttribute('data-bs-delay'));
+
+//     // 1. Afficher le conteneur et préparer le message
+//     toastContainer.style.display = 'block';
+//     toastBody.textContent = message;
+
+//     // 2. Reset la barre (important : enlever la transition pour le reset)
+//     toastProgress.style.transition = 'none';
+//     toastProgress.style.width = '100%';
+
+//     // 3. Initialiser et montrer le toast Bootstrap
+//     const toast = bootstrap.Toast.getOrCreateInstance(toastEl);
+//     toast.show();
+
+//     // 4. Lancer l'animation du trait (petit délai pour que le CSS l'accepte)
+//     setTimeout(() => {
+//         toastProgress.style.transition = `width ${delay}ms linear`;
+//         toastProgress.style.width = '0%';
+//     }, 100);
+
+//     // 5. Recacher le conteneur quand le toast a fini de disparaître
+//     toastEl.addEventListener('hidden.bs.toast', () => {
+//         toastContainer.style.display = 'none';
+//     }, { once: true });
+// }

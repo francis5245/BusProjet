@@ -487,5 +487,5 @@
 
 
     </div>
-    <div id="toast-container"></div>
+    
 @endsection
