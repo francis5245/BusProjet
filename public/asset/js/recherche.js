@@ -23,17 +23,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             // empêcher que l'utilisateur choisisse la même ville pour départ et arrivée.
             if (departId === arriveeId) {
-              
+
                 showNotification("La ville de départ et d'arrivée doivent être différentes.", "warning");
                 return;
             }
-            // cacher le texte par défaut
-            defaultText.style.display = "none";
-
             // afficher loader
             loader.style.display = "block";
             resultContainer.innerHTML = "";
-
+            //Appel AJAX
             fetch(form.action, {
                 method: "POST",
                 headers: {
@@ -60,21 +57,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     if (!data.success) {
                         resultContainer.innerHTML = "";
-                        defaultText.style.display = "block";
-                        prevBtn.style.display = "none";
-                        nextBtn.style.display = "none";
-
-                        Swal.fire({
-                            icon: "info",
-                            title: "Information",
-                            text: data.message, // message venant du serveur
-                            width: "300px"
-                        });
-
+                        // Swal.fire({
+                        //     icon: "info",
+                        //     title: "Information",
+                        //     text: data.message, // message venant du serveur
+                        //     width: "300px"
+                        // });
+                        showNotification(data.message, "danger");
                         return;
                     }
 
-                    afficherResultats(data.voyages);
+                    // afficherResultats(data.voyages); // affichage des résultats de recherche
+
+                    //---STRATEGIE DE CHAGEMENT DE "PAGE"--
+                    const params = '?from=${departId}&to=${arriveeId}$date=${dateDepart}';
+                    window.history.pushState(
+                        { view: 'results' },
+                        "Résultats",
+                        `/resultats?token=${data.token}`
+                    );
+                    
+                    // //Basculement visuel
+                    // sectionAccueil.style.display = "none";
+                    // sectionResultats.style.display = "block";
 
                     // Le nombre de voyage disponible
                     const nombreVoyages = data.voyages.length;
@@ -104,12 +109,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     console.error(error);
 
-                    Swal.fire({
-                        icon: "error",
-                        title: "Erreur",
-                        text: "Une erreur est survenue pendant la recherche",
-                        width: "300px"
-                    });
+                    // Swal.fire({
+                    //     icon: "error",
+                    //     title: "Erreur",
+                    //     text: "Une erreur est survenue pendant la recherche",
+                    //     width: "300px"
+                    // });
+                    showNotification("Une erreur est survenue pendant la recherche", "danger");
 
                 });
 

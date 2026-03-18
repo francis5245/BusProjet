@@ -24,7 +24,10 @@ use App\Http\Controllers\AuthController;
 // ----------------------- ACCUEIL -----------------------
 Route::get('/', [MenusController::class, 'Accueil'])->name('accueil');
 Route::post('/search', [MenusController::class, 'Recherche'])->name('recherche');
-
+Route::get('/resultats', function () {
+    return view('component.resultats');
+    
+    })->name('voyages.rechercher');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [MenusController::class, 'Dashboard'])->name('dashboard');
     Route::put('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.updatePhoto');
